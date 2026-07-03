@@ -1,0 +1,125 @@
+{
+  "@@locale": "en",
+  "appTitle": "Gym Workout Diary",
+  "navHome": "Home",
+  "navWorkouts": "Workouts",
+  "navStatistics": "Statistics",
+  "homeNoPlanTitle": "You don't have a workout plan yet",
+  "homeNoPlanAction": "Create workout",
+  "homeRestDay": "Today is a rest day",
+  "homeWeightLiftedToday": "Lifted today: {weight} kg",
+  "@homeWeightLiftedToday": {
+    "placeholders": {
+      "weight": {
+        "type": "int"
+      }
+    }
+  },
+  "homeSetProgress": "Set {current} of {total}",
+  "@homeSetProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "homeSetDetails": "{weight} kg × {reps}",
+  "@homeSetDetails": {
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      },
+      "reps": {
+        "type": "int"
+      }
+    }
+  },
+  "workoutsEmpty": "Select your workout days",
+  "workoutsConfigure": "Configure",
+  "workoutsSelectDays": "Select workout days",
+  "workoutsSave": "Save",
+  "workoutsCancel": "Cancel",
+  "weekdayMonday": "Monday",
+  "weekdayTuesday": "Tuesday",
+  "weekdayWednesday": "Wednesday",
+  "weekdayThursday": "Thursday",
+  "weekdayFriday": "Friday",
+  "weekdaySaturday": "Saturday",
+  "weekdaySunday": "Sunday",
+  "dayExercisesTitle": "Exercises",
+  "dayExercisesEmpty": "No exercises for this day",
+  "dayExercisesAdd": "Add exercise",
+  "dayExercisesSetsCount": "{count} sets",
+  "@dayExercisesSetsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dayExercisesDelete": "Delete",
+  "dayExercisesEdit": "Edit",
+  "exerciseFormTitle": "Add exercise",
+  "exerciseFormEditTitle": "Edit exercise",
+  "exerciseFormName": "Exercise name",
+  "exerciseFormNameHint": "e.g. Bench press",
+  "exerciseFormSets": "Sets",
+  "exerciseFormSetNumber": "Set {number}",
+  "@exerciseFormSetNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseFormWeight": "Weight (kg)",
+  "exerciseFormReps": "Repetitions",
+  "exerciseFormAddSet": "Add set",
+  "exerciseFormRemoveSet": "Remove set",
+  "exerciseFormSave": "Save",
+  "exerciseFormSelectExisting": "Select existing",
+  "exerciseFormSelectExistingTitle": "Existing exercises",
+  "exerciseFormValidationName": "Enter exercise name",
+  "exerciseFormValidationSets": "Add at least one set",
+  "statisticsTitle": "Statistics",
+  "statisticsOverview": "Overview",
+  "statisticsTotalWorkouts": "Total workouts",
+  "statisticsTotalSets": "Completed sets",
+  "statisticsTotalWeight": "Total weight lifted",
+  "statisticsAvgWeight": "Avg. weight per workout",
+  "statisticsActivityChart": "Activity",
+  "statisticsTopExercises": "Top exercises",
+  "statisticsPersonalRecords": "Personal records",
+  "statisticsMaxWeight": "Max weight: {weight} kg",
+  "@statisticsMaxWeight": {
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      }
+    }
+  },
+  "statisticsMaxVolume": "Max volume: {volume} kg",
+  "@statisticsMaxVolume": {
+    "placeholders": {
+      "volume": {
+        "type": "String"
+      }
+    }
+  },
+  "statisticsCalendar": "Workout calendar",
+  "statisticsEmpty": "Complete your first workout to see detailed statistics",
+  "statisticsKg": "{value} kg",
+  "@statisticsKg": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "errorGeneric": "Something went wrong",
+  "errorRetry": "Retry",
+  "loading": "Loading..."
+}
