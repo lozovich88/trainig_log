@@ -52,6 +52,6 @@ class HomeController extends _$HomeController {
       return;
     }
     await _completeSet(progressId);
-    await refresh();
+    state = AsyncData(await _load());
   }
 }
