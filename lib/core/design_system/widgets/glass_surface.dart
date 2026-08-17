@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:training_log/core/design_system/theme/app_glass_theme.dart';
 import 'package:training_log/core/design_system/tokens/app_dimens.dart';
 import 'package:training_log/core/design_system/tokens/app_radius.dart';
+import 'package:training_log/core/design_system/utils/app_platform.dart';
 
 enum GlassSurfaceStyle {
   glass,
@@ -62,15 +63,15 @@ class GlassSurface extends StatelessWidget {
 
     final content = ClipRRect(
       borderRadius: BorderRadius.circular(borderRadius),
-      child: isCard
-          ? decoratedChild
-          : BackdropFilter(
+      child: AppPlatform.supportsBackdropBlur && !isCard
+          ? BackdropFilter(
               filter: ImageFilter.blur(
                 sigmaX: AppDimens.glassBlur,
                 sigmaY: AppDimens.glassBlur,
               ),
               child: decoratedChild,
-            ),
+            )
+          : decoratedChild,
     );
 
     final themedChild = isCard

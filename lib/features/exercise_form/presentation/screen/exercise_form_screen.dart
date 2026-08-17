@@ -12,6 +12,7 @@ import 'package:training_log/core/domain/entity/exercise_entity.dart';
 import 'package:training_log/core/extensions/l10n_extension.dart';
 import 'package:training_log/features/exercise_form/domain/entity/exercise_form_data.dart';
 import 'package:training_log/features/exercise_form/domain/entity/set_input.dart';
+import 'package:training_log/features/day_exercises/presentation/provider/day_exercises_providers.dart';
 import 'package:training_log/features/exercise_form/presentation/provider/exercise_form_providers.dart';
 
 class ExerciseFormScreen extends HookConsumerWidget {
@@ -165,6 +166,7 @@ class ExerciseFormScreen extends HookConsumerWidget {
                   sets: sets,
                 );
               }
+              ref.invalidate(dayExercisesControllerProvider(dayId));
               if (context.mounted) {
                 context.pop();
               }
@@ -208,6 +210,7 @@ class ExerciseFormScreen extends HookConsumerWidget {
           dayId: dayId,
           exerciseId: selected.id,
         );
+    ref.invalidate(dayExercisesControllerProvider(dayId));
     if (context.mounted) {
       context.pop();
     }

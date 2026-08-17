@@ -9,6 +9,10 @@ import 'package:training_log/core/design_system/widgets/app_scaffold.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+  };
+
   ErrorWidget.builder = (details) {
     return Material(
       child: Center(

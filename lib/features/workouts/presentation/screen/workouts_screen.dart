@@ -51,8 +51,8 @@ class WorkoutsScreen extends ConsumerWidget {
     SelectDaysSheet.show(
       context,
       initialSelected: selected,
-      onSave: (weekdays) {
-        ref.read(workoutsControllerProvider.notifier).saveDays(weekdays);
+      onSave: (weekdays) async {
+        await ref.read(workoutsControllerProvider.notifier).saveDays(weekdays);
       },
     );
   }

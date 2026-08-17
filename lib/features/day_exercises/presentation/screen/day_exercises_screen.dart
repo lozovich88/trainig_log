@@ -28,7 +28,13 @@ class DayExercisesScreen extends ConsumerWidget {
       title: context.l10n.dayExercisesTitle,
       floatingActionButton: AppGlassFab(
         icon: Icons.add_rounded,
-        onPressed: () => context.push(AppRoutes.addExercise(dayId)),
+        onPressed: () async {
+          await context.push(AppRoutes.addExercise(dayId));
+          if (!context.mounted) {
+            return;
+          }
+          await ref.read(dayExercisesControllerProvider(dayId).notifier).refresh();
+        },
       ),
       body: RiverpodScreenBody<List<TrainingExerciseEntity>>(
         asyncValue: exercisesState,
@@ -37,7 +43,13 @@ class DayExercisesScreen extends ConsumerWidget {
           icon: Icons.playlist_add_rounded,
           title: context.l10n.dayExercisesEmpty,
           actionLabel: context.l10n.exerciseFormTitle,
-          onAction: () => context.push(AppRoutes.addExercise(dayId)),
+          onAction: () async {
+            await context.push(AppRoutes.addExercise(dayId));
+            if (!context.mounted) {
+              return;
+            }
+            await ref.read(dayExercisesControllerProvider(dayId).notifier).refresh();
+          },
         ),
         contentBuilder: (context, exercises) => _ReorderableExerciseList(
           dayId: dayId,

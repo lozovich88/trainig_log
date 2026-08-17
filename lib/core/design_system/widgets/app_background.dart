@@ -11,7 +11,11 @@ class AppBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final glass = AppGlassTheme.of(context);
+    final theme = Theme.of(context);
+    final glass = theme.extension<AppGlassTheme>() ??
+        (theme.brightness == Brightness.dark
+            ? AppGlassTheme.dark(theme.colorScheme)
+            : AppGlassTheme.light(theme.colorScheme));
 
     return DecoratedBox(
       decoration: BoxDecoration(

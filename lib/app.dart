@@ -17,6 +17,12 @@ class GymWorkoutDiaryApp extends ConsumerWidget {
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
       themeMode: ThemeMode.system,
+      builder: (context, child) {
+        return ColoredBox(
+          color: Theme.of(context).colorScheme.surface,
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

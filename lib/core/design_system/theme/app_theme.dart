@@ -27,7 +27,7 @@ abstract final class AppTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
-      scaffoldBackgroundColor: Colors.transparent,
+      scaffoldBackgroundColor: colorScheme.surface,
       cupertinoOverrideTheme: CupertinoThemeData(
         primaryColor: colorScheme.primary,
         barBackgroundColor: glass.navBar,

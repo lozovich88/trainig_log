@@ -14,15 +14,16 @@ class SelectDaysSheet extends HookWidget {
   });
 
   final List<int> initialSelected;
-  final ValueChanged<List<int>> onSave;
+  final Future<void> Function(List<int> weekdays) onSave;
 
   static Future<void> show(
     BuildContext context, {
     required List<int> initialSelected,
-    required ValueChanged<List<int>> onSave,
+    required Future<void> Function(List<int> weekdays) onSave,
   }) {
     return AppBottomSheet.show<void>(
       context,
+      reserveBottomNavSpace: true,
       builder: (context) => SelectDaysSheet(
         initialSelected: initialSelected,
         onSave: onSave,
@@ -45,6 +46,7 @@ class SelectDaysSheet extends HookWidget {
 
     return AppBottomSheet(
       title: context.l10n.workoutsSelectDays,
+      reserveBottomNavSpace: true,
       actions: Row(
         children: [
           Expanded(
@@ -57,9 +59,11 @@ class SelectDaysSheet extends HookWidget {
           Expanded(
             child: AppPrimaryButton(
               label: context.l10n.workoutsSave,
-              onPressed: () {
-                onSave(selected.value.toList()..sort());
-                Navigator.of(context).pop();
+              onPressed: () async {
+                await onSave(selected.value.toList()..sort());
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                }
               },
             ),
           ),

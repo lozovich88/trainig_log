@@ -15,4 +15,5 @@ abstract final class AppDimens {
   static const double chartLineWidth = 3;
   static const double glassBlur = 24;
   static const double navBarHeight = 64;
+  static const double bottomNavReservedHeight = navBarHeight + size8;
 }
