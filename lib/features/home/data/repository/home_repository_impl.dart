@@ -14,7 +14,7 @@ class HomeRepositoryImpl implements HomeRepository {
   final WorkoutLocalDataSource _dataSource;
   final DateTime Function() _now;
 
-  static const int _calendarDaysCount = 28;
+  static const int _calendarDaysCount = 21;
 
   @override
   Future<HomeContent> getHomeContent(DateTime selectedDate) async {
@@ -24,7 +24,7 @@ class HomeRepositoryImpl implements HomeRepository {
       return const HomeContent.noPlan();
     }
 
-    final calendarDays = await _buildCalendarDays(normalizedSelectedDate);
+    final calendarDays = await _buildCalendarDays();
     final todayDay = await _dataSource.getTrainingDayByWeekday(normalizedSelectedDate.weekday);
     if (todayDay == null) {
       return HomeContent.restDay(
@@ -96,7 +96,7 @@ class HomeRepositoryImpl implements HomeRepository {
     return _dataSource.incrementCompletedSets(progressId);
   }
 
-  Future<List<HomeCalendarDay>> _buildCalendarDays(DateTime selectedDate) async {
+  Future<List<HomeCalendarDay>> _buildCalendarDays() async {
     final today = DateUtils.normalize(_now());
     final start = today.subtract(const Duration(days: _calendarDaysCount - 1));
     final days = <HomeCalendarDay>[];
