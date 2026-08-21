@@ -35,36 +35,5 @@ abstract final class AppColorScheme {
     );
   }
 
-  static ColorScheme dark() {
-    return const ColorScheme(
-      brightness: Brightness.dark,
-      primary: AppColors.coralLight,
-      onPrimary: Color(0xFF3D1210),
-      primaryContainer: Color(0xFF5C2A24),
-      onPrimaryContainer: Color(0xFFFFDDD8),
-      secondary: AppColors.mint,
-      onSecondary: Color(0xFF0F2924),
-      secondaryContainer: AppColors.mintDark,
-      onSecondaryContainer: AppColors.mint,
-      tertiary: AppColors.teal,
-      onTertiary: Color(0xFF002117),
-      tertiaryContainer: AppColors.tealDeep,
-      onTertiaryContainer: Color(0xFF9FE8D4),
-      error: Color(0xFFFF453A),
-      onError: Color(0xFF690005),
-      errorContainer: Color(0xFF93000A),
-      onErrorContainer: Color(0xFFFFDAD6),
-      surface: AppColors.navy,
-      onSurface: Color(0xFFF5F5F7),
-      onSurfaceVariant: Color(0xFFB8C4CE),
-      outline: Color(0x59FFFFFF),
-      outlineVariant: Color(0x33FFFFFF),
-      shadow: Color(0x66000000),
-      scrim: Color(0x99000000),
-      inverseSurface: Color(0xFFF5F5F7),
-      onInverseSurface: AppColors.navy,
-      inversePrimary: AppColors.coralDark,
-      surfaceTint: AppColors.coralLight,
-    );
-  }
+  static ColorScheme dark() => light();
 }

@@ -1,8 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:training_log/core/monitoring/monitoring_providers.dart';
 import 'package:training_log/core/providers/datasource_provider.dart';
 import 'package:training_log/core/state/ui_state.dart';
-import 'package:training_log/core/monitoring/monitoring_providers.dart';
+import 'package:training_log/core/utils/date_utils.dart';
 import 'package:training_log/features/home/data/repository/home_repository_impl.dart';
 import 'package:training_log/features/home/domain/entity/home_content.dart';
 import 'package:training_log/features/home/domain/repository/home_repository.dart';
@@ -19,22 +20,23 @@ final homeRepositoryProvider = Provider<HomeRepository>((ref) {
 class HomeController extends _$HomeController {
   late final GetHomeContentUseCase _getHomeContent;
   late final CompleteSetUseCase _completeSet;
+  late DateTime _selectedDate;
 
   @override
   Future<UiState<HomeContent>> build() async {
     _getHomeContent = GetHomeContentUseCase(ref.watch(homeRepositoryProvider));
     _completeSet = CompleteSetUseCase(ref.watch(homeRepositoryProvider));
-    return _load();
+    _selectedDate = DateUtils.normalize(DateTime.now());
+    return _load(_selectedDate);
   }
 
-  Future<UiState<HomeContent>> _load() async {
+  Future<UiState<HomeContent>> _load(DateTime date) async {
     try {
-      final content = await _getHomeContent(DateTime.now());
+      final content = await _getHomeContent(date);
       return switch (content) {
         HomeNoPlan() => const UiState.content(HomeContent.noPlan()),
-        HomeRestDay() => const UiState.content(HomeContent.restDay()),
-        HomeWorkout(:final exercises) when exercises.isEmpty =>
-          UiState.content(HomeContent.workout(liftedWeightToday: content.liftedWeightToday, exercises: const [])),
+        HomeRestDay() => UiState.content(content),
+        HomeWorkout(:final exercises) when exercises.isEmpty => UiState.content(content),
         _ => UiState.content(content),
       };
     } catch (error) {
@@ -44,7 +46,12 @@ class HomeController extends _$HomeController {
 
   Future<void> refresh() async {
     state = const AsyncLoading();
-    state = AsyncData(await _load());
+    state = AsyncData(await _load(_selectedDate));
+  }
+
+  Future<void> selectDate(DateTime date) async {
+    _selectedDate = DateUtils.normalize(date);
+    state = AsyncData(await _load(_selectedDate));
   }
 
   Future<void> completeSet(int progressId) async {
@@ -54,6 +61,6 @@ class HomeController extends _$HomeController {
     }
     await _completeSet(progressId);
     await ref.read(appAnalyticsProvider).logSetCompleted(progressId: progressId);
-    state = AsyncData(await _load());
+    state = AsyncData(await _load(_selectedDate));
   }
 }

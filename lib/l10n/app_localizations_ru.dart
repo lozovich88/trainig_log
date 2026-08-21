@@ -45,6 +45,26 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get homeCalendarTitle => 'Календарь';
+
+  @override
+  String get homeCalendarToday => 'Сегодня';
+
+  @override
+  String get homeAllExercisesCompleted =>
+      'Все упражнения выполнены за этот день';
+
+  @override
+  String homeWeightLiftedOnDate(String date, int weight) {
+    return 'Поднято $date: $weight кг';
+  }
+
+  @override
+  String homeRestDayOnDate(String date) {
+    return 'День отдыха $date';
+  }
+
+  @override
   String get workoutsEmpty => 'Выберите дни тренировок';
 
   @override

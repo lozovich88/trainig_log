@@ -103,20 +103,5 @@ class AppGlassTheme extends ThemeExtension<AppGlassTheme> {
     );
   }
 
-  static AppGlassTheme dark(ColorScheme scheme) {
-    return AppGlassTheme(
-      surface: Colors.white.withValues(alpha: 0.1),
-      surfaceElevated: AppColors.mint.withValues(alpha: 0.16),
-      border: Colors.white.withValues(alpha: 0.22),
-      navBar: AppColors.navy.withValues(alpha: 0.52),
-      gradientStart: AppColors.navy,
-      gradientCenter: AppColors.navyMid,
-      gradientEnd: AppColors.teal,
-      accentGlow: AppColors.teal.withValues(alpha: 0.28),
-      cardSurface: AppColors.mint.withValues(alpha: 0.94),
-      cardBorder: AppColors.mintDark.withValues(alpha: 0.28),
-      cardOnSurface: AppColors.mintCardText,
-      cardOnSurfaceVariant: AppColors.mintCardTextVariant,
-    );
-  }
+  static AppGlassTheme dark(ColorScheme scheme) => light(scheme);
 }

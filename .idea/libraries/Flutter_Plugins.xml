@@ -9,6 +9,11 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/jni-1.0.0" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider-2.1.5" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.3.1" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core_web-3.10.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_analytics_web-0.6.1+12" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_crashlytics-5.2.7" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_analytics-12.4.6" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core-4.13.0" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

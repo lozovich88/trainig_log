@@ -125,12 +125,12 @@ return workout(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  noPlan,TResult Function()?  restDay,TResult Function( int liftedWeightToday,  List<TodayExerciseItem> exercises)?  workout,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  noPlan,TResult Function( DateTime selectedDate,  List<HomeCalendarDay> calendarDays)?  restDay,TResult Function( DateTime selectedDate,  List<HomeCalendarDay> calendarDays,  int liftedWeight,  List<TodayExerciseItem> exercises)?  workout,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case HomeNoPlan() when noPlan != null:
 return noPlan();case HomeRestDay() when restDay != null:
-return restDay();case HomeWorkout() when workout != null:
-return workout(_that.liftedWeightToday,_that.exercises);case _:
+return restDay(_that.selectedDate,_that.calendarDays);case HomeWorkout() when workout != null:
+return workout(_that.selectedDate,_that.calendarDays,_that.liftedWeight,_that.exercises);case _:
   return orElse();
 
 }
@@ -148,12 +148,12 @@ return workout(_that.liftedWeightToday,_that.exercises);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  noPlan,required TResult Function()  restDay,required TResult Function( int liftedWeightToday,  List<TodayExerciseItem> exercises)  workout,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  noPlan,required TResult Function( DateTime selectedDate,  List<HomeCalendarDay> calendarDays)  restDay,required TResult Function( DateTime selectedDate,  List<HomeCalendarDay> calendarDays,  int liftedWeight,  List<TodayExerciseItem> exercises)  workout,}) {final _that = this;
 switch (_that) {
 case HomeNoPlan():
 return noPlan();case HomeRestDay():
-return restDay();case HomeWorkout():
-return workout(_that.liftedWeightToday,_that.exercises);case _:
+return restDay(_that.selectedDate,_that.calendarDays);case HomeWorkout():
+return workout(_that.selectedDate,_that.calendarDays,_that.liftedWeight,_that.exercises);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -170,12 +170,12 @@ return workout(_that.liftedWeightToday,_that.exercises);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  noPlan,TResult? Function()?  restDay,TResult? Function( int liftedWeightToday,  List<TodayExerciseItem> exercises)?  workout,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  noPlan,TResult? Function( DateTime selectedDate,  List<HomeCalendarDay> calendarDays)?  restDay,TResult? Function( DateTime selectedDate,  List<HomeCalendarDay> calendarDays,  int liftedWeight,  List<TodayExerciseItem> exercises)?  workout,}) {final _that = this;
 switch (_that) {
 case HomeNoPlan() when noPlan != null:
 return noPlan();case HomeRestDay() when restDay != null:
-return restDay();case HomeWorkout() when workout != null:
-return workout(_that.liftedWeightToday,_that.exercises);case _:
+return restDay(_that.selectedDate,_that.calendarDays);case HomeWorkout() when workout != null:
+return workout(_that.selectedDate,_that.calendarDays,_that.liftedWeight,_that.exercises);case _:
   return null;
 
 }
@@ -219,42 +219,92 @@ String toString() {
 
 
 class HomeRestDay implements HomeContent {
-  const HomeRestDay();
+  const HomeRestDay({required this.selectedDate, required final  List<HomeCalendarDay> calendarDays}): _calendarDays = calendarDays;
   
 
+ final  DateTime selectedDate;
+ final  List<HomeCalendarDay> _calendarDays;
+ List<HomeCalendarDay> get calendarDays {
+  if (_calendarDays is EqualUnmodifiableListView) return _calendarDays;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_calendarDays);
+}
 
 
+/// Create a copy of HomeContent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$HomeRestDayCopyWith<HomeRestDay> get copyWith => _$HomeRestDayCopyWithImpl<HomeRestDay>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeRestDay);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeRestDay&&(identical(other.selectedDate, selectedDate) || other.selectedDate == selectedDate)&&const DeepCollectionEquality().equals(other._calendarDays, _calendarDays));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,selectedDate,const DeepCollectionEquality().hash(_calendarDays));
 
 @override
 String toString() {
-  return 'HomeContent.restDay()';
+  return 'HomeContent.restDay(selectedDate: $selectedDate, calendarDays: $calendarDays)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $HomeRestDayCopyWith<$Res> implements $HomeContentCopyWith<$Res> {
+  factory $HomeRestDayCopyWith(HomeRestDay value, $Res Function(HomeRestDay) _then) = _$HomeRestDayCopyWithImpl;
+@useResult
+$Res call({
+ DateTime selectedDate, List<HomeCalendarDay> calendarDays
+});
 
 
+
+
+}
+/// @nodoc
+class _$HomeRestDayCopyWithImpl<$Res>
+    implements $HomeRestDayCopyWith<$Res> {
+  _$HomeRestDayCopyWithImpl(this._self, this._then);
+
+  final HomeRestDay _self;
+  final $Res Function(HomeRestDay) _then;
+
+/// Create a copy of HomeContent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? selectedDate = null,Object? calendarDays = null,}) {
+  return _then(HomeRestDay(
+selectedDate: null == selectedDate ? _self.selectedDate : selectedDate // ignore: cast_nullable_to_non_nullable
+as DateTime,calendarDays: null == calendarDays ? _self._calendarDays : calendarDays // ignore: cast_nullable_to_non_nullable
+as List<HomeCalendarDay>,
+  ));
+}
+
+
+}
 
 /// @nodoc
 
 
 class HomeWorkout implements HomeContent {
-  const HomeWorkout({required this.liftedWeightToday, required final  List<TodayExerciseItem> exercises}): _exercises = exercises;
+  const HomeWorkout({required this.selectedDate, required final  List<HomeCalendarDay> calendarDays, required this.liftedWeight, required final  List<TodayExerciseItem> exercises}): _calendarDays = calendarDays,_exercises = exercises;
   
 
- final  int liftedWeightToday;
+ final  DateTime selectedDate;
+ final  List<HomeCalendarDay> _calendarDays;
+ List<HomeCalendarDay> get calendarDays {
+  if (_calendarDays is EqualUnmodifiableListView) return _calendarDays;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_calendarDays);
+}
+
+ final  int liftedWeight;
  final  List<TodayExerciseItem> _exercises;
  List<TodayExerciseItem> get exercises {
   if (_exercises is EqualUnmodifiableListView) return _exercises;
@@ -273,16 +323,16 @@ $HomeWorkoutCopyWith<HomeWorkout> get copyWith => _$HomeWorkoutCopyWithImpl<Home
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeWorkout&&(identical(other.liftedWeightToday, liftedWeightToday) || other.liftedWeightToday == liftedWeightToday)&&const DeepCollectionEquality().equals(other._exercises, _exercises));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeWorkout&&(identical(other.selectedDate, selectedDate) || other.selectedDate == selectedDate)&&const DeepCollectionEquality().equals(other._calendarDays, _calendarDays)&&(identical(other.liftedWeight, liftedWeight) || other.liftedWeight == liftedWeight)&&const DeepCollectionEquality().equals(other._exercises, _exercises));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,liftedWeightToday,const DeepCollectionEquality().hash(_exercises));
+int get hashCode => Object.hash(runtimeType,selectedDate,const DeepCollectionEquality().hash(_calendarDays),liftedWeight,const DeepCollectionEquality().hash(_exercises));
 
 @override
 String toString() {
-  return 'HomeContent.workout(liftedWeightToday: $liftedWeightToday, exercises: $exercises)';
+  return 'HomeContent.workout(selectedDate: $selectedDate, calendarDays: $calendarDays, liftedWeight: $liftedWeight, exercises: $exercises)';
 }
 
 
@@ -293,7 +343,7 @@ abstract mixin class $HomeWorkoutCopyWith<$Res> implements $HomeContentCopyWith<
   factory $HomeWorkoutCopyWith(HomeWorkout value, $Res Function(HomeWorkout) _then) = _$HomeWorkoutCopyWithImpl;
 @useResult
 $Res call({
- int liftedWeightToday, List<TodayExerciseItem> exercises
+ DateTime selectedDate, List<HomeCalendarDay> calendarDays, int liftedWeight, List<TodayExerciseItem> exercises
 });
 
 
@@ -310,9 +360,11 @@ class _$HomeWorkoutCopyWithImpl<$Res>
 
 /// Create a copy of HomeContent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? liftedWeightToday = null,Object? exercises = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? selectedDate = null,Object? calendarDays = null,Object? liftedWeight = null,Object? exercises = null,}) {
   return _then(HomeWorkout(
-liftedWeightToday: null == liftedWeightToday ? _self.liftedWeightToday : liftedWeightToday // ignore: cast_nullable_to_non_nullable
+selectedDate: null == selectedDate ? _self.selectedDate : selectedDate // ignore: cast_nullable_to_non_nullable
+as DateTime,calendarDays: null == calendarDays ? _self._calendarDays : calendarDays // ignore: cast_nullable_to_non_nullable
+as List<HomeCalendarDay>,liftedWeight: null == liftedWeight ? _self.liftedWeight : liftedWeight // ignore: cast_nullable_to_non_nullable
 as int,exercises: null == exercises ? _self._exercises : exercises // ignore: cast_nullable_to_non_nullable
 as List<TodayExerciseItem>,
   ));

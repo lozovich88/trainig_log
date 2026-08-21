@@ -37,6 +37,28 @@
       }
     }
   },
+  "homeCalendarTitle": "Calendar",
+  "homeCalendarToday": "Today",
+  "homeAllExercisesCompleted": "All exercises completed for this day",
+  "homeWeightLiftedOnDate": "Lifted on {date}: {weight} kg",
+  "@homeWeightLiftedOnDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "weight": {
+        "type": "int"
+      }
+    }
+  },
+  "homeRestDayOnDate": "Rest day on {date}",
+  "@homeRestDayOnDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "workoutsEmpty": "Select your workout days",
   "workoutsConfigure": "Configure",
   "workoutsSelectDays": "Select workout days",

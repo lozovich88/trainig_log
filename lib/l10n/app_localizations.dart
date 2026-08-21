@@ -158,6 +158,36 @@ abstract class AppLocalizations {
   /// **'{weight} kg × {reps}'**
   String homeSetDetails(String weight, int reps);
 
+  /// No description provided for @homeCalendarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get homeCalendarTitle;
+
+  /// No description provided for @homeCalendarToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get homeCalendarToday;
+
+  /// No description provided for @homeAllExercisesCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'All exercises completed for this day'**
+  String get homeAllExercisesCompleted;
+
+  /// No description provided for @homeWeightLiftedOnDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifted on {date}: {weight} kg'**
+  String homeWeightLiftedOnDate(String date, int weight);
+
+  /// No description provided for @homeRestDayOnDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest day on {date}'**
+  String homeRestDayOnDate(String date);
+
   /// No description provided for @workoutsEmpty.
   ///
   /// In en, this message translates to:

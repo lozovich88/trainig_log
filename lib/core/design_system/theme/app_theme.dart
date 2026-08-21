@@ -11,10 +11,7 @@ abstract final class AppTheme {
         colorScheme: AppColorScheme.light(),
       );
 
-  static ThemeData dark() => _buildTheme(
-        brightness: Brightness.dark,
-        colorScheme: AppColorScheme.dark(),
-      );
+  static ThemeData dark() => light();
 
   static ThemeData _buildTheme({
     required Brightness brightness,

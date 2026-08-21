@@ -45,6 +45,26 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get homeCalendarTitle => 'Calendar';
+
+  @override
+  String get homeCalendarToday => 'Today';
+
+  @override
+  String get homeAllExercisesCompleted =>
+      'All exercises completed for this day';
+
+  @override
+  String homeWeightLiftedOnDate(String date, int weight) {
+    return 'Lifted on $date: $weight kg';
+  }
+
+  @override
+  String homeRestDayOnDate(String date) {
+    return 'Rest day on $date';
+  }
+
+  @override
   String get workoutsEmpty => 'Select your workout days';
 
   @override
