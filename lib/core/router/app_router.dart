@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:training_log/core/monitoring/monitoring_providers.dart';
 import 'package:training_log/core/design_system/widgets/app_scaffold.dart';
 import 'package:training_log/core/design_system/widgets/main_shell.dart';
 import 'package:training_log/core/router/app_routes.dart';
@@ -21,6 +22,7 @@ GoRouter appRouter(Ref ref) {
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: AppRoutes.home,
+    observers: ref.watch(analyticsObserversProvider),
     errorBuilder: (context, state) {
       return AppScaffold(
         title: 'Navigation error',

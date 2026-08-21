@@ -13,6 +13,7 @@ import 'package:training_log/core/extensions/l10n_extension.dart';
 import 'package:training_log/features/exercise_form/domain/entity/exercise_form_data.dart';
 import 'package:training_log/features/exercise_form/domain/entity/set_input.dart';
 import 'package:training_log/features/day_exercises/presentation/provider/day_exercises_providers.dart';
+import 'package:training_log/core/monitoring/monitoring_providers.dart';
 import 'package:training_log/features/exercise_form/presentation/provider/exercise_form_providers.dart';
 
 class ExerciseFormScreen extends HookConsumerWidget {
@@ -32,6 +33,8 @@ class ExerciseFormScreen extends HookConsumerWidget {
     final isLoading = useState(isEdit);
     final errorText = useState<String?>(null);
     final nameController = useTextEditingController();
+    final focusRepsSetIndex = useState<int?>(null);
+    final clearRepsFocus = useMemoized(() => () => focusRepsSetIndex.value = null, const []);
 
     useEffect(() {
       if (!isEdit) {
@@ -105,10 +108,12 @@ class ExerciseFormScreen extends HookConsumerWidget {
           const SizedBox(height: AppDimens.size8),
           ...List.generate(formData.value.sets.length, (index) {
             return _SetInputCard(
-              key: ValueKey('set-$index-${formData.value.sets.length}'),
+              key: ValueKey('set-$index'),
               index: index,
               set: formData.value.sets[index],
               canRemove: formData.value.sets.length > 1,
+              requestRepsFocus: focusRepsSetIndex.value == index,
+              onRepsFocused: clearRepsFocus,
               onChanged: (updated) {
                 final sets = List<SetInput>.from(formData.value.sets);
                 sets[index] = updated;
@@ -125,6 +130,8 @@ class ExerciseFormScreen extends HookConsumerWidget {
             icon: Icons.add_rounded,
             label: context.l10n.exerciseFormAddSet,
             onPressed: () {
+              final newIndex = formData.value.sets.length;
+              focusRepsSetIndex.value = newIndex;
               formData.value = formData.value.copyWith(
                 sets: [...formData.value.sets, const SetInput()],
               );
@@ -167,6 +174,10 @@ class ExerciseFormScreen extends HookConsumerWidget {
                 );
               }
               ref.invalidate(dayExercisesControllerProvider(dayId));
+              await ref.read(appAnalyticsProvider).logExerciseSaved(
+                    dayId: dayId,
+                    isEdit: isEdit,
+                  );
               if (context.mounted) {
                 context.pop();
               }
@@ -231,6 +242,8 @@ class _SetInputCard extends HookWidget {
     required this.canRemove,
     required this.onChanged,
     required this.onRemove,
+    this.requestRepsFocus = false,
+    this.onRepsFocused,
     super.key,
   });
 
@@ -239,11 +252,14 @@ class _SetInputCard extends HookWidget {
   final bool canRemove;
   final ValueChanged<SetInput> onChanged;
   final VoidCallback onRemove;
+  final bool requestRepsFocus;
+  final VoidCallback? onRepsFocused;
 
   @override
   Widget build(BuildContext context) {
     final weightController = useTextEditingController(text: set.weightText);
     final repsController = useTextEditingController(text: set.repsText);
+    final repsFocusNode = useFocusNode();
 
     useEffect(() {
       if (weightController.text != set.weightText) {
@@ -254,6 +270,19 @@ class _SetInputCard extends HookWidget {
       }
       return null;
     }, [set.weightText, set.repsText]);
+
+    useEffect(() {
+      if (!requestRepsFocus) {
+        return null;
+      }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (repsFocusNode.canRequestFocus) {
+          repsFocusNode.requestFocus();
+          onRepsFocused?.call();
+        }
+      });
+      return null;
+    }, [requestRepsFocus]);
 
     return AppCard(
       margin: const EdgeInsets.only(bottom: AppDimens.size8),
@@ -291,6 +320,7 @@ class _SetInputCard extends HookWidget {
               Expanded(
                 child: TextField(
                   controller: repsController,
+                  focusNode: repsFocusNode,
                   decoration: InputDecoration(labelText: context.l10n.exerciseFormReps),
                   keyboardType: TextInputType.number,
                   onChanged: (value) => onChanged(set.copyWith(repsText: value)),

@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:training_log/core/domain/entity/training_day_entity.dart';
 import 'package:training_log/core/providers/datasource_provider.dart';
 import 'package:training_log/core/state/ui_state.dart';
+import 'package:training_log/core/monitoring/monitoring_providers.dart';
 import 'package:training_log/features/home/presentation/provider/home_providers.dart';
 import 'package:training_log/features/workouts/data/repository/workouts_repository_impl.dart';
 import 'package:training_log/features/workouts/domain/repository/workouts_repository.dart';
@@ -46,6 +47,7 @@ class WorkoutsController extends _$WorkoutsController {
 
   Future<void> saveDays(List<int> weekdays) async {
     await _saveTrainingDays(weekdays);
+    await ref.read(appAnalyticsProvider).logTrainingDaysSaved(daysCount: weekdays.length);
     ref.invalidate(homeControllerProvider);
     await refresh();
   }

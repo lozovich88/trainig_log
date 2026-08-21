@@ -7,7 +7,7 @@ part of 'workouts_providers.dart';
 // **************************************************************************
 
 String _$workoutsControllerHash() =>
-    r'dca8c3251426b68ec5cf9af3b97b60fe9c75ef86';
+    r'f2f2a6dc353ac5280516a34087134249e454161b';
 
 /// See also [WorkoutsController].
 @ProviderFor(WorkoutsController)

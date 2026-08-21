@@ -1,16 +1,26 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:training_log/app.dart';
 import 'package:training_log/core/design_system/tokens/app_dimens.dart';
 import 'package:training_log/core/design_system/widgets/app_scaffold.dart';
+import 'package:training_log/core/monitoring/app_crashlytics.dart';
+import 'package:training_log/core/monitoring/firebase_bootstrap.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FirebaseBootstrap.initialize();
 
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
+    AppCrashlytics.recordFlutterError(details);
+  };
+
+  PlatformDispatcher.instance.onError = (error, stack) {
+    AppCrashlytics.recordError(error, stack, fatal: true);
+    return true;
   };
 
   ErrorWidget.builder = (details) {
@@ -36,6 +46,7 @@ void main() {
       );
     },
     (error, stack) {
+      AppCrashlytics.recordError(error, stack, fatal: true);
       runApp(_StartupErrorApp(error: error, stack: stack));
     },
   );

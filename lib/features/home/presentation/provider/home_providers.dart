@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:training_log/core/providers/datasource_provider.dart';
 import 'package:training_log/core/state/ui_state.dart';
+import 'package:training_log/core/monitoring/monitoring_providers.dart';
 import 'package:training_log/features/home/data/repository/home_repository_impl.dart';
 import 'package:training_log/features/home/domain/entity/home_content.dart';
 import 'package:training_log/features/home/domain/repository/home_repository.dart';
@@ -52,6 +53,7 @@ class HomeController extends _$HomeController {
       return;
     }
     await _completeSet(progressId);
+    await ref.read(appAnalyticsProvider).logSetCompleted(progressId: progressId);
     state = AsyncData(await _load());
   }
 }
